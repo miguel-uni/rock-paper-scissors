@@ -20,3 +20,10 @@ function computerPlay(move) {
     }
 }
 
+let computerSelection = computerPlay(move);
+
+let playerSelection = prompt("What is your move? (rock, paper, scissors)");
+
+function firstRound(computerSelection, playerSelection) {
+
+}

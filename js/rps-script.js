@@ -16,22 +16,41 @@ function computerPlay(move) {
     }
 }
 
-let computerSelection = computerPlay(move);
+const computerSelection = computerPlay(move);
 
 //prompt and function for the player to pick a move
-let playerMove = prompt("What is your move? (rock, paper or scissors)");
+let playerMove = prompt("What is your move? (rock, paper, scissors)");
 
 function playerPlay(playerMove) {
     if (playerMove.toLowerCase() == "rock") {
-        return 1;
+        return "rock";
     } else if (playerMove.toLowerCase() == "paper") {
-        return 2;
+        return "paper";
     } else if (playerMove.toLowerCase() == "scissors") {
-        return 3;
+        return "scissors";
     } else {
         return "You made a mistake!";
     }
 }
 
-let playerSelection = playerPlay(playerMove);
+const playerSelection = playerPlay(playerMove);
 
+//fuction to select the winner of the round 
+function playRound(playerSelection, computerSelection) {
+    if (computerSelection == playerSelection) {
+        return "We have a tie!";
+    } else if ((computerSelection == "rock") && (playerSelection == "scissors")) {
+        return "You lose! Rock beats Scissors";
+    } else if ((computerSelection == "paper") && (playerSelection == "rock")) {
+        return "You lose! Paper beats Rock";
+    } else if ((computerSelection == "scissors") && (playerSelection == "paper")) {
+        return "You lose! Scissors beats Paper";
+    } else {
+        return "You win this round!";
+    }
+  }
+
+
+console.log(computerSelection);
+console.log(playerSelection);
+console.log(playRound(playerSelection, computerSelection));

@@ -1,14 +1,6 @@
-//random number generator to randomize move of computer between 1 and 3
-
-function randomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min +1) + min);
-}
-
-//function to declare move of computer
-
-function computerPlay(randomNumber) {
-    let move = randomNumber(1, 3);
-
+// randomly selects computer's play 
+function computerPlay() {
+    const move = Math.floor(Math.random() * (3 - 1 + 1) + 1);
     if (move == 1) {
         return "rock";
     } else if (move == 2) {
@@ -18,59 +10,69 @@ function computerPlay(randomNumber) {
     }
 }
 
-//prompt and function for the player to pick a move and it's not case sensitive
-
-
-function playerPlay() {
-    let playerMove = prompt("What is your move? (rock, paper, scissors)");
-    
-    if (playerMove.toLowerCase() == "rock") {
-        return "rock";
-    } else if (playerMove.toLowerCase() == "paper") {
-        return "paper";
-    } else if (playerMove.toLowerCase() == "scissors") {
-        return "scissors";
-    } else {
-        return "You made a mistake!";
-    }
-}
-
-
-//fuction to select the winner of the round 
-
-function playRound(computerPlay, playerPlay) {
-    const computerSelection = computerPlay(randomNumber);
-    const playerSelection = playerPlay();
-    
-    console.log(computerSelection);
-    console.log(playerSelection);
-
-    let loser = `You lose! ${computerSelection} beats ${playerSelection}`;
-    const winner = "You win this round!";
-    const tie = "We have a tie!";
+// starts round, declare who wins the round and add 1 point to winner 
+function round(computerSelection, playerSelection) {   
+    const draw = "We have a tie!";
+    let playerWin = `You win this round! ${playerSelection} beats ${computerSelection}`;
+    let computerWin = `You lose this round! ${computerSelection} beats ${playerSelection}`;
 
     if (computerSelection == playerSelection) {
-        return tie;
-    } else if ((computerSelection == "rock") && (playerSelection == "scissors")) {
-        return loser;
-    } else if ((computerSelection == "paper") && (playerSelection == "rock")) {
-        return loser;
-    } else if ((computerSelection == "scissors") && (playerSelection == "paper")) {
-        return loser;
+        return draw;
+    } else if (
+        (computerSelection == "rock") && (playerSelection == "scissors") ||
+        (computerSelection == "paper") && (playerSelection == "rock") || 
+        (computerSelection == "scissors") && (playerSelection == "paper")
+    ) {
+        computerScore += 1;
+        return computerWin;
+    } else if (playerSelection == "scissors") {
+        playerScore += 1;
+        return playerWin;
+    } else if (playerSelection == "rock" ) {
+        playerScore += 1;
+        return playerWin;
+    } else if (playerSelection == "paper") {
+        playerScore += 1;
+        return playerWin;
     } else {
-        return winner;
+        return "ERROR: You typed an incorrect value";
     }
 }
 
-//function to start a game of 5 rounds 
+// declare a winner depending on score 
+function gameWinner() {
+    if (computerScore > playerScore) {
+        return "HAHA You lose! Loser! L"
+    } else if (playerScore > computerScore) {
+        return "Congrats! You win!!"
+    } else {
+        return "We have a tie! Play again!"
+    }
+}
 
-function game(playRound, playerPlay) {
+let playerScore = parseInt(0);
+let computerScore = parseInt(0);
+
+// starts game of five rounds 
+function game() {
     for (let i = 0; i < 5; i++) {
+        console.log("ROUND " + (i + 1));
+        console.log("Computer score: " + (computerScore / 2));
+        console.log("Player score: " + (playerScore / 2));
 
-
+        let computerSelection = computerPlay();
+        
+        let playerSelection = prompt("What is your move? (rock, paper, scissors)").toLowerCase();
+        
+        round(computerSelection, playerSelection);
+        
+        console.log("");
+        console.log("Computer: " + computerSelection);
+        console.log("You: " + playerSelection);
+        console.log(round(computerSelection, playerSelection));
+        console.log("");
     }
+    console.log(gameWinner());
 }
 
-console.log(playRound(computerPlay, playerPlay));
-
-//console.log(game(playRound(playerSelection, computerSelection)));
+game();

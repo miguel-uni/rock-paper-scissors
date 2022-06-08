@@ -23,16 +23,14 @@ function round(computerSelection, playerSelection) {
         (computerSelection == "paper") && (playerSelection == "rock") || 
         (computerSelection == "scissors") && (playerSelection == "paper")
     ) {
-        computerScore += 1;
+        computerScore++;
         return computerWin;
-    } else if (playerSelection == "scissors") {
-        playerScore += 1;
-        return playerWin;
-    } else if (playerSelection == "rock" ) {
-        playerScore += 1;
-        return playerWin;
-    } else if (playerSelection == "paper") {
-        playerScore += 1;
+    } else if (
+        (playerSelection == "scissors") || 
+        (playerSelection == "rock" ) || 
+        (playerSelection == "paper")
+    ) {
+        playerScore++;
         return playerWin;
     } else {
         return "ERROR: You typed an incorrect value";

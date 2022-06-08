@@ -1,9 +1,9 @@
 // randomly selects computer's play 
 function computerPlay() {
-    const move = Math.floor(Math.random() * (3 - 1 + 1) + 1);
-    if (move == 1) {
+    const randomMove = Math.floor(Math.random() * (3 - 1 + 1) + 1);
+    if (randomMove == 1) {
         return "rock";
-    } else if (move == 2) {
+    } else if (randomMove == 2) {
         return "paper";
     } else {
         return "scissors";
@@ -11,7 +11,7 @@ function computerPlay() {
 }
 
 // starts round, declare who wins the round and add 1 point to winner 
-function round(computerSelection, playerSelection) {   
+function playRound(computerSelection, playerSelection) {   
     const tie = `We have a tie! ${computerSelection} to ${playerSelection}`;
     let playerWin = `You win this round! ${playerSelection} beats ${computerSelection}`;
     let computerWin = `You lose this round! ${computerSelection} beats ${playerSelection}`;
@@ -19,16 +19,16 @@ function round(computerSelection, playerSelection) {
     if (computerSelection == playerSelection) {
         return tie;
     } else if (
-        (computerSelection == "rock") && (playerSelection == "scissors") ||
-        (computerSelection == "paper") && (playerSelection == "rock") || 
-        (computerSelection == "scissors") && (playerSelection == "paper")
+            (computerSelection == "rock") && (playerSelection == "scissors") ||
+            (computerSelection == "paper") && (playerSelection == "rock") || 
+            (computerSelection == "scissors") && (playerSelection == "paper")
     ) {
         computerScore++;
         return computerWin;
     } else if (
-        (playerSelection == "scissors") || 
-        (playerSelection == "rock" ) || 
-        (playerSelection == "paper")
+            (playerSelection == "scissors") || 
+            (playerSelection == "rock" ) || 
+            (playerSelection == "paper")
     ) {
         playerScore++;
         return playerWin;
@@ -52,7 +52,7 @@ function gameWinner() {
 }
 
 // starts game of 3 rounds 
-function game() {
+function playGame() {
     for (let i = 0; i < 3; i++) {
         console.log("ROUND " + (i + 1));
         console.log("Computer score: " + (computerScore / 2));
@@ -60,12 +60,12 @@ function game() {
 
         let computerSelection = computerPlay();
         let playerSelection = prompt("What is your move? (rock, paper, scissors)").toLowerCase();
-        round(computerSelection, playerSelection);
+        playRound(computerSelection, playerSelection);
         
         console.log("");
         console.log("Computer: " + computerSelection);
         console.log("You: " + playerSelection);
-        console.log(round(computerSelection, playerSelection));
+        console.log(playRound(computerSelection, playerSelection));
         console.log("");
     }
     console.log("GAME")
@@ -74,4 +74,4 @@ function game() {
     console.log(gameWinner());
 }
 
-game();
+playGame();

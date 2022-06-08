@@ -12,12 +12,12 @@ function computerPlay() {
 
 // starts round, declare who wins the round and add 1 point to winner 
 function round(computerSelection, playerSelection) {   
-    const draw = "We have a tie!";
+    const tie = `We have a tie! ${computerSelection} to ${playerSelection}`;
     let playerWin = `You win this round! ${playerSelection} beats ${computerSelection}`;
     let computerWin = `You lose this round! ${computerSelection} beats ${playerSelection}`;
 
     if (computerSelection == playerSelection) {
-        return draw;
+        return tie;
     } else if (
         (computerSelection == "rock") && (playerSelection == "scissors") ||
         (computerSelection == "paper") && (playerSelection == "rock") || 
@@ -39,31 +39,29 @@ function round(computerSelection, playerSelection) {
     }
 }
 
-// declare a winner depending on score 
+// declare who wins the game depending on score 
+let playerScore = parseInt(0);
+let computerScore = parseInt(0);
+
 function gameWinner() {
     if (computerScore > playerScore) {
-        return "HAHA You lose! Loser! L"
+        return "HAHA GAME OVER! Loser!"
     } else if (playerScore > computerScore) {
-        return "Congrats! You win!!"
+        return "Congrats! You win the game!!"
     } else {
         return "We have a tie! Play again!"
     }
 }
 
-let playerScore = parseInt(0);
-let computerScore = parseInt(0);
-
-// starts game of five rounds 
+// starts game of 3 rounds 
 function game() {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         console.log("ROUND " + (i + 1));
         console.log("Computer score: " + (computerScore / 2));
         console.log("Player score: " + (playerScore / 2));
 
         let computerSelection = computerPlay();
-        
         let playerSelection = prompt("What is your move? (rock, paper, scissors)").toLowerCase();
-        
         round(computerSelection, playerSelection);
         
         console.log("");
@@ -72,6 +70,9 @@ function game() {
         console.log(round(computerSelection, playerSelection));
         console.log("");
     }
+    console.log("GAME")
+    console.log("Computer score: " + (computerScore / 2));
+    console.log("Player score: " + (playerScore / 2));
     console.log(gameWinner());
 }
 

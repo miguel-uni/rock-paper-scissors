@@ -1,6 +1,6 @@
 // randomly selects computer's play 
 function computerPlay() {
-    const randomMove = Math.floor(Math.random() * (3 - 1 + 1) + 1);
+    let randomMove = Math.floor(Math.random() * (3 - 1 + 1) + 1);
     if (randomMove == 1) {
         return "rock";
     } else if (randomMove == 2) {
@@ -12,26 +12,26 @@ function computerPlay() {
 
 // starts round, declare who wins the round and add 1 point to winner 
 function playRound(computerSelection, playerSelection) {   
-    const tie = `We have a tie! ${computerSelection} to ${playerSelection}`;
-    let playerWin = `You win this round! ${playerSelection} beats ${computerSelection}`;
-    let computerWin = `You lose this round! ${computerSelection} beats ${playerSelection}`;
+    let tieRound = `We have a tie! ${computerSelection} to ${playerSelection}`;
+    let playerWinRound = `You win this round! ${playerSelection} beats ${computerSelection}`;
+    let computerWinRound = `You lose this round! ${computerSelection} beats ${playerSelection}`;
 
     if (computerSelection == playerSelection) {
-        return tie;
+        return tieRound;
     } else if (
             (computerSelection == "rock") && (playerSelection == "scissors") ||
             (computerSelection == "paper") && (playerSelection == "rock") || 
             (computerSelection == "scissors") && (playerSelection == "paper")
     ) {
         computerScore++;
-        return computerWin;
+        return computerWinRound;
     } else if (
             (playerSelection == "scissors") || 
             (playerSelection == "rock" ) || 
             (playerSelection == "paper")
     ) {
         playerScore++;
-        return playerWin;
+        return playerWinRound;
     } else {
         return "ERROR: You typed an incorrect value";
     }
@@ -41,7 +41,7 @@ function playRound(computerSelection, playerSelection) {
 let playerScore = parseInt(0);
 let computerScore = parseInt(0);
 
-function gameWinner() {
+function getWinner() {
     if (computerScore > playerScore) {
         return "HAHA GAME OVER! Loser!"
     } else if (playerScore > computerScore) {
@@ -71,7 +71,7 @@ function playGame() {
     console.log("GAME")
     console.log("Computer score: " + (computerScore / 2));
     console.log("Player score: " + (playerScore / 2));
-    console.log(gameWinner());
+    console.log(getWinner());
 }
 
 playGame();

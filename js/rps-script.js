@@ -26,15 +26,9 @@ function playRound(computerSelection, playerSelection) {
     ) {
         computerScore++;
         return computerWinRound;
-    } else if (
-            (playerSelection === 'scissors') ||
-            (playerSelection === 'rock' ) ||
-            (playerSelection === 'paper')
-    ) {
+    } else {
         playerScore++;
         return playerWinRound;
-    } else {
-        return 'ERROR';
     };
 };
 
@@ -45,10 +39,8 @@ let computerScore = Number(0);
 function getWinner() {
     if (computerScore > playerScore) {
         return 'HAHA GAME OVER! Loser!';
-    } else if (playerScore > computerScore) {
-        return 'Congrats! You win the game!!';
     } else {
-        return 'We have a tie! Play again!';
+        return 'Congrats! You win the game!!';
     };
 };
 
@@ -60,7 +52,7 @@ const computerScoreUI = document.querySelector('div.computer-score');
 const buttons = document.querySelectorAll('button');
 
 // analize which button was clicked, assign its value to playerSelection 
-// and play rounds until one player gets to 5 points
+// and play rounds until one player reaches 5 points
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         const computerSelection = computerPlay();

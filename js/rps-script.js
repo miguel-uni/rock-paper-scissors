@@ -2,41 +2,41 @@
 function computerPlay() {
     let randomMove = Math.floor(Math.random() * (3 - 1 + 1) + 1);
 
-    if (randomMove == 1) {
+    if (randomMove === 1) {
         return 'rock';
-    } else if (randomMove == 2) {
+    } else if (randomMove === 2) {
         return 'paper';
     } else {
         return 'scissors';
-    }
-}
+    };
+};
 
 // starts round, declare who wins the round and add 1 point to winner 
 function playRound(computerSelection, playerSelection) {
     let tieRound = `We have a tie! ${ computerSelection } to ${ playerSelection }`;
     let playerWinRound = `You win this round! ${ playerSelection } beats ${ computerSelection }`;
     let computerWinRound = `You lose this round! ${ computerSelection } beats ${ playerSelection }`;
-
-    if (computerSelection == playerSelection) {
+    
+    if (computerSelection === playerSelection) {
         return tieRound;
     } else if (
-            (computerSelection == 'rock') && (playerSelection == 'scissors') ||
-            (computerSelection == 'paper') && (playerSelection == 'rock') ||
-            (computerSelection == 'scissors') && (playerSelection == 'paper')
+            (computerSelection === 'rock') && (playerSelection === 'scissors') ||
+            (computerSelection === 'paper') && (playerSelection === 'rock') ||
+            (computerSelection === 'scissors') && (playerSelection === 'paper')
     ) {
         computerScore++;
         return computerWinRound;
     } else if (
-            (playerSelection == 'scissors') ||
-            (playerSelection == 'rock' ) ||
-            (playerSelection == 'paper')
+            (playerSelection === 'scissors') ||
+            (playerSelection === 'rock' ) ||
+            (playerSelection === 'paper')
     ) {
         playerScore++;
         return playerWinRound;
     } else {
-        return 'ERROR: You typed an incorrect value';
-    }
-}
+        return 'ERROR';
+    };
+};
 
 // declare who wins the game depending on score 
 let playerScore = Number(0);
@@ -49,29 +49,32 @@ function getWinner() {
         return 'Congrats! You win the game!!';
     } else {
         return 'We have a tie! Play again!';
-    }
-}
+    };
+};
 
-// starts game of 3 rounds 
-function playGame() {
-    for (let i = 0; i < 3; i++) {
-        console.log('ROUND ' + (i + 1));
-        console.log('Computer score: ' + (computerScore / 2));
-        console.log('Player score: ' + (playerScore / 2));
-        let computerSelection = computerPlay();
-        let playerSelection = prompt('What is your move? (rock, paper, scissors)').toLowerCase();
-        playRound(computerSelection, playerSelection);
-        console.log('');
-        console.log('Computer: ' + computerSelection);
-        console.log('You: ' + playerSelection);
-        console.log(playRound(computerSelection, playerSelection));
-        console.log('');
-    }
 
-    console.log('GAME')
-    console.log('Computer score: ' + (computerScore / 2));
-    console.log('Player score: ' + (playerScore / 2));
-    console.log(getWinner());
-}
+const roundResult = document.querySelector('div.round-result');
+const gameResult = document.querySelector('div.game-result');
+const playerScoreUI = document.querySelector('div.player-score');
+const computerScoreUI = document.querySelector('div.computer-score');
+const buttons = document.querySelectorAll('button');
 
-playGame();
+// analize which button was clicked, assign its value to playerSelection 
+// and play rounds until one player gets to 5 points
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        const computerSelection = computerPlay();
+
+        if (((playerScore / 2) === 5) || ((computerScore / 2 === 5))) {
+            gameResult.textContent = getWinner();
+            roundResult.remove();
+        } else {
+            const playerSelection = button.id;
+            playRound(computerSelection, playerSelection);
+            roundResult.textContent = playRound(computerSelection, playerSelection);
+        };
+        
+        computerScoreUI.textContent = `CPU: ${ computerScore / 2 }`;
+        playerScoreUI.textContent = `Player: ${ playerScore / 2 }`;
+    });
+});

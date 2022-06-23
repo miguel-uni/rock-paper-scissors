@@ -13,9 +13,9 @@ function computerPlay() {
 
 // starts round, declare who wins the round and add 1 point to winner 
 function playRound(computerSelection, playerSelection) {
-    let tieRound = `We have a tie! ${ computerSelection } to ${ playerSelection }`;
-    let playerWinRound = `You win this round! ${ playerSelection } beats ${ computerSelection }`;
-    let computerWinRound = `You lose this round! ${ computerSelection } beats ${ playerSelection }`;
+    let tieRound = 'We have a tie!';
+    let playerWinRound = 'You win this round!';
+    let computerWinRound = 'You lose this round!';
     
     if (computerSelection === playerSelection) {
         return tieRound;
@@ -49,10 +49,13 @@ const roundResult = document.querySelector('div.round-result');
 const gameResult = document.querySelector('div.game-result');
 const playerScoreUI = document.querySelector('div.player-score');
 const computerScoreUI = document.querySelector('div.computer-score');
-const buttons = document.querySelectorAll('button');
+const playerSelectionUI = document.querySelector('div.player-selection');
+const computerSelectionUI = document.querySelector('div.computer-selection');
 
 // analize which button was clicked, assign its value to playerSelection 
 // and play rounds until one player reaches 5 points
+const buttons = document.querySelectorAll('button');
+
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         const computerSelection = computerPlay();
@@ -60,8 +63,13 @@ buttons.forEach((button) => {
         if (((playerScore / 2) === 5) || ((computerScore / 2 === 5))) {
             gameResult.textContent = getWinner();
             roundResult.remove();
+            playerSelectionUI.remove();
+            computerSelectionUI.remove();
         } else {
             const playerSelection = button.id;
+            playerSelectionUI.textContent = playerSelection;
+            computerSelectionUI.textContent = computerSelection;
+
             playRound(computerSelection, playerSelection);
             roundResult.textContent = playRound(computerSelection, playerSelection);
         };

@@ -24,8 +24,14 @@ button {
 }
 
 button:hover {
-    box-shadow: 0px 15px 20px rgba(141, 141, 141, 0.4);
+    background-color: #2b96dda8;
+    box-shadow: 0px 15px 20px rgba(57, 120, 179, 0.4);
     transform: translateY(-7px);
+}
+
+button:active {
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.123);
+    transform: translateY(3px);
 }
 
 #result-container {

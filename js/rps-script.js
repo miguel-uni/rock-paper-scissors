@@ -1,6 +1,7 @@
 const tieRound = 'We have a tie!';
 const playerWinRound = 'You win this round!';
 const computerWinRound = 'You lose this round!';
+
 const winStyle = `
         background-color: #2EE59D;
         box-shadow: 0px 8px 15px rgba(46, 229, 157, 0.4);
@@ -13,8 +14,16 @@ const tieStyle = `
         background-color: #f39d1dd3;
         box-shadow: 0px 8px 15px rgba(229, 162, 46, 0.4);
 `;
+
 let playerScore = Number(0);
 let computerScore = Number(0);
+
+const roundResultUI = document.querySelector('.round-result');
+const gameResultUI = document.querySelector('.game-result');
+const playerScoreUI = document.querySelector('.player-score');
+const computerScoreUI = document.querySelector('.computer-score');
+const playerSelectionUI = document.querySelector('.player-selection');
+const computerSelectionUI = document.querySelector('.computer-selection');
 const buttons = document.querySelectorAll('button');
 
 // randomly selects computer's play 
@@ -56,31 +65,18 @@ function getWinner() {
     };
 };
 
-// analize which button was clicked, assign its value to playerSelection 
-// and play rounds until one player reaches 5 points
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        const roundResultUI = document.querySelector('div.round-result');
-        const gameResultUI = document.querySelector('div.game-result');
-        const playerScoreUI = document.querySelector('div.player-score');
-        const computerScoreUI = document.querySelector('div.computer-score');
-        const playerSelectionUI = document.querySelector('div.player-selection');
-        const computerSelectionUI = document.querySelector('div.computer-selection');
-        const computerSelection = computerPlay();
-
-        if (((playerScore / 2) === 5) || ((computerScore / 2 === 5))) {
-            gameResultUI.textContent = getWinner();
-            roundResultUI.remove();
-            playerSelectionUI.remove();
-            computerSelectionUI.remove();
-        } else {
+// analize which button was clicked, assign its value to playerSelection and play
+function playGame() {
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const computerSelection = computerPlay();
             const playerSelection = button.id;
             const roundResult = playRound(computerSelection, playerSelection);
-
+    
             playerSelectionUI.textContent = playerSelection;
             computerSelectionUI.textContent = computerSelection;
             roundResultUI.textContent = playRound(computerSelection, playerSelection);
-
+        
             if (roundResult === playerWinRound) {
                 playerSelectionUI.style.cssText = winStyle;
                 computerSelectionUI.style.cssText = loseStyle;
@@ -91,9 +87,30 @@ buttons.forEach((button) => {
                 playerSelectionUI.style.cssText = tieStyle;
                 computerSelectionUI.style.cssText = tieStyle;
             };
-        };
-
-        computerScoreUI.textContent = `CPU: ${ computerScore / 2 }`;
-        playerScoreUI.textContent = `Player: ${ playerScore / 2 }`;
+            
+            computerScoreUI.textContent = `CPU: ${ computerScore / 2 }`;
+            playerScoreUI.textContent = `Player: ${ playerScore / 2 }`;
+        });
     });
-});
+};
+
+function checkWinner() {
+    const gameBox = document.querySelector('.game-box');
+
+    gameBox.addEventListener('mouseover', () => {
+        let playerTextContent = playerScoreUI.textContent;
+        let computerTextContent = computerScoreUI.textContent;
+    
+        if ((playerTextContent == 'Player: 5') || (computerTextContent == 'CPU: 5')) {
+            gameResultUI.textContent = getWinner();
+            roundResultUI.remove();
+            playerSelectionUI.remove();
+            computerSelectionUI.remove();
+        } else {
+            return;
+        };
+    });
+};
+
+playGame();
+checkWinner();

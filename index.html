@@ -9,22 +9,30 @@
     <script src="./js/rps-script.js" defer></script>
 </head>
 <body>
-    <div id="button-container">
-        <button id="rock">👊</button>
-        <button id="paper">✋</button>
-        <button id="scissors">✌️</button>
+    <div id="container">
+        <div class="title">Rock-Paper-Scissors</div>
+        <div class="game-box">
+            <div id="button-container">
+                <button id="rock">👊</button>
+                <button id="paper">✋</button>
+                <button id="scissors">✌️</button>
+            </div>
+            <div id="result-container">
+                <div class="round-result">Pick your first move</div>
+                <div class="game-result"></div>
+            </div>
+            <div id="selection-container">
+                <div class="player-selection">Player selection</div>
+                <div class="computer-selection">CPU selection</div>
+            </div>
+            <div id="score-container">
+                <div class="player-score">Player: 0</div>
+                <div class="computer-score">CPU: 0</div>
+            </div>
+        </div>
     </div>
-    <div id="result-container">
-        <div class="round-result">Pick your first move</div>
-        <div class="game-result"></div>
-    </div>
-    <div id="selection-container">
-        <div class="player-selection">Player selection</div>
-        <div class="computer-selection">CPU selection</div>
-    </div>
-    <div id="score-container">
-        <div class="player-score">Player: 0</div>
-        <div class="computer-score">CPU: 0</div>
-    </div>
+    <footer>
+        <div class="footer">Copyright © 2022 <a href="https://github.com/miguel-uni">miguel-uni</a></div>
+    </footer>
 </body>
 </html>

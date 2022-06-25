@@ -1,8 +1,6 @@
-
 const tieRound = 'We have a tie!';
 const playerWinRound = 'You win this round!';
 const computerWinRound = 'You lose this round!';
-
 const winStyle = `
         background-color: #2EE59D;
         box-shadow: 0px 8px 15px rgba(46, 229, 157, 0.4);
@@ -15,11 +13,9 @@ const tieStyle = `
         background-color: #f39d1dd3;
         box-shadow: 0px 8px 15px rgba(229, 162, 46, 0.4);
 `;
-
-const buttons = document.querySelectorAll('button');
-
 let playerScore = Number(0);
 let computerScore = Number(0);
+const buttons = document.querySelectorAll('button');
 
 // randomly selects computer's play 
 function computerPlay() {

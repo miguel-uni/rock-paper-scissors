@@ -27,7 +27,7 @@ const computerSelectionUI = document.querySelector('.computer-selection');
 const buttons = document.querySelectorAll('button');
 
 // randomly selects computer's play 
-function computerPlay() {
+function getComputerPlay() {
     let randomMove = Math.floor(Math.random() * (3 - 1 + 1) + 1);
 
     if (randomMove === 1) {
@@ -65,11 +65,32 @@ function getWinner() {
     };
 };
 
+function styleSelectionDisplay(winner, loser) {
+    const player = playerSelectionUI;
+    const cpu = computerSelectionUI;
+
+    if ((winner === 'player') && (loser === 'cpu')) {
+        player.style.cssText = winStyle;
+        cpu.style.cssText = loseStyle;
+    } else if ((winner === 'cpu') && (loser === 'player')) {
+        player.style.cssText = loseStyle;
+        cpu.style.cssText = winStyle;
+    } else {
+        player.style.cssText = tieStyle;
+        cpu.style.cssText = tieStyle;
+    };
+};
+
+function displayScores(playerScore, computerScore) {
+    playerScoreUI.textContent = `Player: ${ playerScore / 2 }`;
+    computerScoreUI.textContent = `CPU: ${ computerScore / 2 }`;
+};
+
 // analize which button was clicked, assign its value to playerSelection and play
 function playGame() {
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
-            const computerSelection = computerPlay();
+            const computerSelection = getComputerPlay();
             const playerSelection = button.id;
             const roundResult = playRound(computerSelection, playerSelection);
     
@@ -78,39 +99,31 @@ function playGame() {
             roundResultUI.textContent = playRound(computerSelection, playerSelection);
         
             if (roundResult === playerWinRound) {
-                playerSelectionUI.style.cssText = winStyle;
-                computerSelectionUI.style.cssText = loseStyle;
+                styleSelectionDisplay('player', 'cpu');
             } else if (roundResult === computerWinRound) {
-                playerSelectionUI.style.cssText = loseStyle;
-                computerSelectionUI.style.cssText = winStyle;
+                styleSelectionDisplay('cpu', 'player');
             } else {
-                playerSelectionUI.style.cssText = tieStyle;
-                computerSelectionUI.style.cssText = tieStyle;
+                styleSelectionDisplay();
             };
             
-            computerScoreUI.textContent = `CPU: ${ computerScore / 2 }`;
-            playerScoreUI.textContent = `Player: ${ playerScore / 2 }`;
+            displayScores(playerScore, computerScore);
         });
     });
 };
 
 function checkWinner() {
-    const gameBox = document.querySelector('.game-box');
+    let playerTextContent = playerScoreUI.textContent;
+    let computerTextContent = computerScoreUI.textContent;
 
-    gameBox.addEventListener('mouseover', () => {
-        let playerTextContent = playerScoreUI.textContent;
-        let computerTextContent = computerScoreUI.textContent;
-    
-        if ((playerTextContent == 'Player: 5') || (computerTextContent == 'CPU: 5')) {
-            gameResultUI.textContent = getWinner();
-            roundResultUI.remove();
-            playerSelectionUI.remove();
-            computerSelectionUI.remove();
-        } else {
-            return;
-        };
-    });
+    if ((playerTextContent === 'Player: 5') || (computerTextContent === 'CPU: 5')) {
+        gameResultUI.textContent = getWinner();
+        roundResultUI.remove();
+        playerSelectionUI.remove();
+        computerSelectionUI.remove();
+    } else {
+        return;
+    };
 };
 
 playGame();
-checkWinner();
+setInterval(checkWinner, 1000);

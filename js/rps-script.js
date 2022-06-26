@@ -202,7 +202,7 @@ function displayResult() {
     const roundResult = document.createElement('div');
     const gameResult = document.createElement('div');
 
-    roundResult.textContent = 'Pick your first move';
+    roundResult.textContent = 'Pick your first move, first to 5.';
     roundResult.classList.add('round-result');
     resultContainer.appendChild(roundResult);
 

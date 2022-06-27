@@ -1,4 +1,4 @@
-const tieRound = 'We have a tie!';
+const tieRound = 'It\'s a tie!';
 const playerWinRound = 'You win this round!';
 const computerWinRound = 'You lose this round!';
 
